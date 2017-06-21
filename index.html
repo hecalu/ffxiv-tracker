@@ -1,1 +1,149 @@
-<h1>Hello World</h1>
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <title>-FC- Progression</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="scripts/typeahead.jquery.js"></script>
+    <script src="scripts/jquery.sortElements.js"></script>
+    <script src="scripts/plugin.fcMembersSelect.js"></script>
+    <script src="scripts/plugin.mountsTable.js"></script>
+    <script src="scripts/plugin.minionsTable.js"></script>
+    <script src="scripts/plugin.classjobsTable.js"></script>
+    <script src="scripts/app.js"></script>
+
+  </head>
+  <body>
+    <div class="container-fluid">
+      <h1>Progression tracker</h1>
+
+      <h2>Add character</h2>
+
+      <!-- Manage Tables -->
+      <form>
+        <div class="row">
+          <!-- Add FC Character -->
+          <div class="col-lg-3">
+            <div class="input-group">
+              <select type="text" class="form-control fc-members-list"></select>
+              <span class="input-group-btn">
+                <button class="add-fc-member btn btn-default" type="button" disabled>Add !</button>
+              </span>
+            </div>
+          </div>
+
+          <!-- Add Character by ID -->
+          <div class="col-lg-5">
+            <div class="input-group">
+              <div class="input-group-addon">http://fr.finalfantasyxiv.com/lodestone/character/</div>
+              <input type="text" class="character-id form-control" placeholder="Lodestone ID" required="true">
+              <span class="input-group-btn">
+                <button id="add-lodestone-character" class="btn btn-default" type="button">Add !</button>
+              </span> 
+            </div>
+          </div>
+
+        </div>
+      </form>
+
+      <h2>Progression</h2>
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="active"><a href="#mounts" data-toggle="tab">Mounts</a></li>
+        <li ><a href="#minions" data-toggle="tab">Minions</a></li>
+        <li ><a href="#classjobs" data-toggle="tab">Classes</a></li>
+      </ul>
+
+      <div class="tab-content">
+        
+        <!-- Character's mounts -->
+        <div class="tab-pane active" id="mounts">
+          <div class="row">
+
+            <form id="add-mount-form" class="form-horizontal" action="">
+              
+              <!-- Add Mount from select box -->
+              <div class="col-sm-6">
+                <label for="mount-name" class="col-sm-5 control-label">Add a mount :</label>
+                <div class="input-group col-sm-7">
+                  <input type="text" id="mount-name" class="form-control mount-name" data-provide="typeahead" placeholder="Enter a name">
+                  <span class="input-group-btn">
+                    <button id="add-mount" class="btn btn-default" type="submit">Add !</button>
+                  </span>
+                </div>
+              </div>
+
+            </form>
+              
+            <!-- Preset mounts lists -->
+            <div class="col-sm-6">
+              <ul class="list-inline preset-mounts-list"></ul>
+            </div>
+
+          </div>
+          
+          <hr />
+
+          <table class="table mounts-table">
+            <thead>
+              <tr>
+                <th class="col-lg-2">Characters</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Character's Minions -->
+        <div class="tab-pane" id="minions">
+
+          <div class="row">
+            <form id="add-minion-form" class="form-horizontal" action="">
+              <!-- Add Mount from select box -->
+              <div class="col-sm-6">
+                <label for="minion-name" class="col-sm-5 control-label">Add a minion :</label>
+                <div class="input-group col-sm-7">
+                  <input type="text" id="minion-name" class="form-control minion-name" data-provide="typeahead" placeholder="Enter a name">
+                  <span class="input-group-btn">
+                    <button id="add-minion" class="btn btn-default" type="submit">Add !</button>
+                  </span>
+                </div>
+              </div>
+            </form>
+          </div>
+          
+          <hr />
+
+          <table class="table minions-table">
+            <thead>
+              <tr>
+                <th class="col-lg-2">Characters</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>  
+        </div>
+
+        <!-- Character's Classjobs -->
+        <div class="tab-pane" id="classjobs">
+          <table class="table classjobs-table">
+            <thead>
+              <tr>
+                <th class="col-lg-2">Characters</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,240 @@
+body {
+  background: #1f1f1f;
+  color: #ccc;
+  font-size: 12px;
+}
+
+tbody td:first-child img {
+  border: 1px solid #000;
+}
+
+a {
+	color: #BFA34C;
+}
+
+a:hover {
+	color: #BFA34C;
+}
+
+h1 {
+  background: url('http://img.finalfantasyxiv.com/lds/pc/global/images/common/ic/ic_dia_blue.png?1486293696') no-repeat left center;
+  font-size: 16px;
+  padding-left: 20px;
+  margin: 20px 10px 20px 0;
+  color: #73bfe6;
+}
+
+h2 {
+  background: url('http://img.finalfantasyxiv.com/lds/pc/global/images/common/ic/ic_dia_silver.png?2') no-repeat left center;
+  font-size: 14px;
+  padding-left: 14px;
+  margin: 20px 10px 20px 0;
+}
+
+hr {    
+	border-top: 1px solid #3c3c3c;
+}
+
+.nav-tabs { border: 0;}
+
+.nav-tabs li {
+  background: transparent;
+}
+.nav-tabs li a:hover {
+  background: #2E2E2E;
+  border: 1px solid #3c3c3c;
+  color: #ccc; 
+}
+.nav-tabs li.active a,
+.nav-tabs li.active a:hover,
+.nav-tabs li.active a:focus {
+  background: #2E2E2E;
+  border-top: 1px solid #3c3c3c;
+  border-left: 1px solid #3c3c3c;
+  border-right: 1px solid #3c3c3c;
+  color: #ccc; 
+}
+
+.tab-content {
+  background: #2E2E2E;
+  border: 1px solid #3c3c3c;
+  padding: 15px 10px;
+
+}
+
+input.form-control,
+select.form-control,
+button.btn-default {
+  background: #2E2E2E;    
+  outline: 1px solid #1c1c1c;
+  border: 1px solid #3c3c3c;
+  color: #ccc; 
+}
+
+button.btn-default:hover,
+button.btn-default:active,
+button.btn-default:focus {
+  background: #3c3c3c;    
+  border: 1px solid #3c3c3c;
+  color: #ccc; 
+}
+
+.input-group-addon {
+  background: #3c3c3c;    
+  border: 1px solid #3c3c3c;
+  color: #ccc; 
+  padding-right: 10px;
+}
+
+table {
+  background: #2E2E2E;    
+  outline: 1px solid #1c1c1c;
+  border: 1px solid #3c3c3c;
+}
+table.table thead th {
+  border: 1px solid #3c3c3c;
+  background: #333;
+}
+
+tr td, tr th{
+  text-align: center;
+  position: relative;
+  border: 1px solid #3c3c3c;
+}
+
+tr td:first-child,
+tr th:first-child {
+  text-align: left;
+}
+
+.classjobs-table th {
+	cursor: pointer;
+}
+.classjobs-table th:first-child {
+	cursor: initial;
+}
+
+th.sort-asc:after,
+th.sort-desc:after {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+th.sort-desc:after {
+	content: "\25bc";
+}
+th.sort-asc:after {
+	content: "\25b2";
+}
+
+.delete-column {
+	position: absolute;
+	margin: 0;
+	top: 0px;
+	left: 65%;
+	color: #FFF;
+	border-radius: 20px;
+	border:1px solid #3c3c3c;
+	background: #1f1f1f;
+	width: 20px;
+	height: 20px;
+	display: block;
+	font-size: 12px;
+	padding: 0;
+}
+.delete-column:hover {
+	background: #000;
+	color: #FFF;
+}
+
+.remove-character {
+	position: absolute;
+	top: 0px;
+	left: 37px;
+	color: #FFF;
+	border-radius: 20px;
+	border:1px solid #3c3c3c;
+	background: #1f1f1f;
+	width: 20px;
+	height: 20px;
+	display: block;
+	font-size: 12px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+.remove-character:hover {
+	background: #000;
+	color: #FFF;
+}
+
+.character-name {
+	margin-left: 5px;
+}
+
+.got-it {
+	margin:6px;
+}
+
+.popover {
+	width: 500px;
+	background: #2E2E2E;    
+	border: 1px solid #3c3c3c;
+}
+
+.popover {
+	width: 500px;
+	background: #2E2E2E;    
+	
+}
+.popover.top .arrow:after {
+	border-top-color: #3c3c3c;
+}
+.popover .popover-title {
+	background: #2E2E2E;    
+	color: #BFA34C;
+	text-align: center;
+	font-weight: bold;
+	border-bottom: 1px solid #3c3c3c;
+}
+
+input[data-provide="typeahead"] {
+	text-transform:capitalize;
+}
+
+.typeahead.dropdown-menu {
+	background: #2E2E2E;
+	border: 1px solid #3c3c3c;
+}
+.typeahead .dropdown-item {
+	color: #ccc;
+}
+.typeahead .active .dropdown-item,
+.typeahead .active .dropdown-item:hover {
+	background: #1f1f1f;
+}
+.typeahead .dropdown-item strong {
+	color: #BFA34C;
+}
+
+.classjob-icon {
+	width: 40px;
+	height: 40px;
+}
+
+.classjob-lvl-0 {
+	color: transparent;
+}
+.classjob-lvl-60 {
+	color: #BFA34C;
+	font-weight: bold;
+}
+.ilvl {
+	display: block;
+	color: #45b2ae;
+	background: url('http://img.finalfantasyxiv.com/lds/pc/global/images/character/ic/gear.png?1486293696') no-repeat;
+	padding-left: 20px;
+	text-align: left;
+	margin: auto;
+}
