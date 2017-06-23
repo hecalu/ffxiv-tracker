@@ -14,17 +14,18 @@
     <script src="scripts/plugin.mountsTable.js"></script>
     <script src="scripts/plugin.minionsTable.js"></script>
     <script src="scripts/plugin.classjobsTable.js"></script>
+    <script src="scripts/bootstrap-notify.min.js"></script>
     <script src="scripts/app.js"></script>
 
   </head>
   <body>
     <div class="container-fluid wrapper">
+     
       <header>
         <h1>FFXIV Progress tracker</h1>
       </header>
 
-
-      <!-- Manage Tables -->
+      <!-- Track FC/Character -->
       
       <div class="row">
 
@@ -36,7 +37,7 @@
               <div class="input-group-addon">Lodestone Free Company ID</div>
               <input type="text" class="fc-id form-control" placeholder="Free company ID" required="true" size="20">
               <span class="input-group-btn">
-                <button class="add-lodestone-fc btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+                <button class="add-lodestone-fc btn btn-default" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
               </span>
             </div>
           </form>
@@ -56,13 +57,15 @@
         <!-- Add Character by ID -->
         <div class="col-lg-6">
           <h2>Track a character</h2>
-          <div class="input-group">
-            <div class="input-group-addon">Lodestone Character ID</div>
-            <input type="text" class="character-id form-control" placeholder="Lodestone ID" required="true" value="3340215">
-            <span class="input-group-btn">
-              <button id="add-lodestone-character" class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button>
-            </span> 
-          </div>
+          <form class="add-lodestone-character">
+            <div class="input-group">
+              <div class="input-group-addon">Lodestone Character ID</div>
+              <input type="text" class="add-character-button form-control" placeholder="Lodestone ID" required="true" value="3340215">
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
+              </span> 
+            </div>
+          </form>
         </div>
 
       </div>

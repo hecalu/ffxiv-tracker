@@ -14,12 +14,21 @@ $(document).ready(function(){
   $('table.minions-table').minionsTable();
   $('table.classjobs-table').classjobsTable();
 
-  
+  // Display notification when corresponding event is triggered
+  $(document).on('notification', function(event, data) {
+    $.notify({
+      message: data.message
+    },{
+      type: data.type
+    });
+  });
+
   // When user wants to add a new character from a lodestone id
-  $('#add-lodestone-character').on('click', function(e) {
+  $('.add-lodestone-character').on('submit', function(e) {
     e.preventDefault();
 
     var characterId = $('.character-id').val();
+
     addCharacter(characterId);
   });
 

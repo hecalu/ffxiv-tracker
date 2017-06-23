@@ -83,7 +83,23 @@ hr {
 }
 
 
+/** Notifications **/
+
+
+[data-notify="container"][class*="alert-success"] {
+  outline: 1px solid #1c1c1c;
+  border: 1px solid #BFA34C;
+  background: #3c3c3c;
+  color: #ccc;
+}
+[data-notify="container"][class*="alert-success"] strong {
+  color: #73bfe6;
+}
+
+
 /** FC Information **/
+
+
 .fc-info {
   margin: 10px 0 0 0;
   height: 66px;

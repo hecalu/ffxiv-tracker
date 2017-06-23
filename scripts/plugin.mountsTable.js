@@ -311,19 +311,21 @@ $.widget( "plugin.mountsTable", {
      * Bind plugin events
      */
     _bindEvents: function() {
-        var $this = this;
+      var $this = this;
 
       // When user wants to add a new mount
       $('#add-mount-form').on('submit', function(e) {
         e.preventDefault();
 
         var submittedMountName = $('.mount-name').val();
-        if (submittedMountName == null) return;
+        if (submittedMountName == "") return;
 
         var mountIndex = $this.options.allMounts.findIndex(mount => mount.name_fr == submittedMountName);
         if(mountIndex != -1) {       
             $this.addMount($this.options.allMounts[mountIndex]);
-          }
+        } else {
+            $(document).trigger("notification", {message: "Mount <strong>"+submittedMountName+"</strong> was not found in Lodestone.", type: "danger"});
+        }
       });
     },
 

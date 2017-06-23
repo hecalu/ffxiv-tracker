@@ -50,6 +50,13 @@ $.widget( "plugin.fcMembersSelect", {
 
           var results   = $(data.query.results.result);
           var fcName    = results.find(".entry__freecompany__name").text();  // retrieve FC name
+          
+          // Check if FC data was correctly loaded
+          if(fcName == "") {
+            $(document).trigger("notification", {message: "Free Company <strong>"+fcId+"</strong> was not found in Lodestone.", type: "danger"});
+            return $.Deferred().reject();
+          }
+
           var fcMembers = results.find(".entry__flex");
           var fcLogo    = results.find('.entry__freecompany__crest__image');
           var fcServer  = results.find('.entry__freecompany__gc:last').text();
@@ -73,8 +80,9 @@ $.widget( "plugin.fcMembersSelect", {
             $this.element.find('.fc-info').fadeIn();
           });
 
-          // Trigger event to fill table with FC members.
+          // Trigger event to fill table with FC members + notifications
           $this._trigger("fcMembersRetrieved", {}, {"members": $this.fcMembersID});
+          $(document).trigger("notification", {message: "Free Company <strong>"+fcName+"</strong> loaded.", type: "success"});
         }
   		})
       .fail(function(data) {
@@ -135,7 +143,7 @@ $.widget( "plugin.fcMembersSelect", {
       });
 
       // When tracking a new fc.
-      $('.add-lodestone-fc').on('click', function(e) {
+      $this.element.find('form').on('submit', function(e) {
         e.preventDefault();
 
         // Retrieve FC ID

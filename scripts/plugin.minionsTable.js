@@ -303,26 +303,20 @@ $.widget( "plugin.minionsTable", {
      * Bind plugin events
      */
     _bindEvents: function() {
-    	var $this = this;
+      var $this = this;
 
       // When user wants to add a new minion
       $('#add-minion-form').on('submit', function(e) {
         e.preventDefault();
 
         var submittedMinionName = $('.minion-name').val();
-        if (submittedMinionName == null) return;
+        if (submittedMinionName == "") return;
 
         var minionIndex = $this.options.allMinions.findIndex(minion => minion.name_fr == submittedMinionName);
-        var isAlreadyAdded = ($this.options.displayedMinions.findIndex(minion => minion.name_fr == submittedMinionName) != -1);
-
-        if (minionIndex != -1 && !isAlreadyAdded) {
-          $('.minion-name').val('');
-          $this.addMinion($this.options.allMinions[minionIndex]);
-        
-        // Minion is already displayed
-        } else if (isAlreadyAdded) {
-          // Hightlight the header column
-          $this.element.find('img[data-original-title="'+submittedMinionName+'"]').parent('th').effect("highlight", {}, 500);
+        if(minionIndex != -1) {       
+            $this.addMinion($this.options.allMinions[minionIndex]);
+        } else {
+            $(document).trigger("notification", {message: "Minion <strong>"+submittedMinionName+"</strong> was not found in Lodestone.", type: "danger"});
         }
       });
     }
