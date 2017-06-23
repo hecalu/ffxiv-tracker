@@ -1,32 +1,19 @@
 // App bootstrap
 $(document).ready(function(){
-    
+  
   // Init elements
-  $('.fc-members-list').fcMembersSelect({
-    enableAddFcMemberButton: function(event, data) {
-      $('.add-fc-member').prop('disabled', false);
+  $('.track-free-company').fcMembersSelect({
+    fcMembersRetrieved: function(event, data) {
+      // Remove characters from current displayed table
+      removeCharacters();
+      addCharacters(data.members);
     }
   });
+
   $('table.mounts-table').mountsTable();
   $('table.minions-table').minionsTable();
   $('table.classjobs-table').classjobsTable();
 
-  // When user wants to add a new character from fc members list
-  $('.add-fc-member').on('click', function(e) {
-    e.preventDefault();
-
-    var characterId = $('.fc-members-list').fcMembersSelect("instance").getSelectedMemberID();
-    console.log(characterId);
-    if(characterId == "all") {
-      var allMembers = $('.fc-members-list').fcMembersSelect("instance").getAllMembersID();
-      console.log(allMembers);
-      $.each(allMembers, function(i, characterId){
-        addCharacter(characterId);  
-      });
-    } else {
-      addCharacter(characterId);  
-    }
-  });
   
   // When user wants to add a new character from a lodestone id
   $('#add-lodestone-character').on('click', function(e) {
@@ -36,22 +23,64 @@ $(document).ready(function(){
     addCharacter(characterId);
   });
 
+
+  /**
+   * Add a list of characters to the current displayed table.
+   * Mass ajax query performing once at a time.
+   * 
+   * @param {array} charactersId Array of Lodestone characters id
+   */
+  function addCharacters(charactersId) {
+    if(charactersId.length > 0) {
+      var promise = $.when(1);
+      $.each(charactersId, function(i){
+        promise = promise.then(function() {
+          promise = addCharacter(charactersId[i]);
+        });
+      });
+    }
+  }
+
+
   /**
    * Add selected character to current displayed table
+   * @param {int} charactersId Lodestone character ID 
    */
   function addCharacter(characterId) {
     var currentActiveTab = $('.tab-pane.active').attr('id');
     switch (currentActiveTab) {
       case "mounts":
-        $('table.mounts-table').mountsTable("instance").addCharacter(characterId);
+        return $('table.mounts-table').mountsTable("instance").addCharacter(characterId);
         break;
   
       case "minions":
-        $('table.minions-table').minionsTable("instance").addCharacter(characterId);
+        return $('table.minions-table').minionsTable("instance").addCharacter(characterId);
         break;  
   
       case "classjobs":
-        $('table.classjobs-table').classjobsTable("instance").addCharacter(characterId);
+        return $('table.classjobs-table').classjobsTable("instance").addCharacter(characterId);
+        break;  
+    }
+  }
+
+
+  /**
+   * Remove all characters from current displayed table
+   * @return {[type]} [description]
+   */
+  function removeCharacters() {
+    var currentActiveTab = $('.tab-pane.active').attr('id');
+    switch (currentActiveTab) {
+      case "mounts":
+        return $('table.mounts-table').mountsTable("instance").removeCharacters();
+        break;
+  
+      case "minions":
+        return $('table.minions-table').minionsTable("instance").removeCharacters();
+        break;  
+  
+      case "classjobs":
+        return $('table.classjobs-table').classjobsTable("instance").removeCharacters();
         break;  
     }
   }

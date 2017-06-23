@@ -1,7 +1,22 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald');
+
+html {
+  height: 100%;
+}
 body {
   background: #1f1f1f;
   color: #ccc;
   font-size: 12px;
+  height: 100%;
+
+}
+
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -50px; 
+  padding-bottom: 75px;
 }
 
 tbody td:first-child img {
@@ -9,31 +24,133 @@ tbody td:first-child img {
 }
 
 a {
-	color: #BFA34C;
+  color: #BFA34C;
 }
 
 a:hover {
-	color: #BFA34C;
+  color: #BFA34C;
+}
+
+header {
+  padding: 0 0 10px 0;
+  margin: 20px 10px 0 0;
+  border-bottom: 1px solid #3f4345;
+}
+
+footer {
+  background: #111;
+  height: 50px;
+  text-align: center;
+  border-top: 1px solid #3f4345;
+}
+
+footer p {
+  margin:5px 0 0 0;
+}
+
+footer .made-by {
+  color: #ccc;
+}
+
+footer a {
+  color: #73bfe6;
+}
+
+footer .copyright {
+  font-size: 0.9em;
+  color: #999;
 }
 
 h1 {
   background: url('http://img.finalfantasyxiv.com/lds/pc/global/images/common/ic/ic_dia_blue.png?1486293696') no-repeat left center;
-  font-size: 16px;
-  padding-left: 20px;
-  margin: 20px 10px 20px 0;
+  font-size: 25px;
+  font-family: 'Oswald', sans-serif;
+  padding-left: 30px;
   color: #73bfe6;
+  text-transform: uppercase;
 }
 
 h2 {
   background: url('http://img.finalfantasyxiv.com/lds/pc/global/images/common/ic/ic_dia_silver.png?2') no-repeat left center;
-  font-size: 14px;
+  font-size: 20px;
+  font-family: 'Oswald', sans-serif;
   padding-left: 14px;
   margin: 20px 10px 20px 0;
 }
 
 hr {    
-	border-top: 1px solid #3c3c3c;
+  border-top: 1px solid #3c3c3c;
 }
+
+
+/** FC Information **/
+.fc-info {
+  margin: 10px 0 0 0;
+  height: 66px;
+  background: #404040;
+  outline: 1px solid #1c1c1c;
+  border: 1px solid #3c3c3c;
+}
+
+.entry__freecompany__crest__base {
+    position: absolute;
+    left: 0;
+}
+
+.entry__freecompany__crest__image {
+    position: relative;
+    width: 64px;
+    height: 64px;
+    top: 0px;
+    left: 0px;
+}
+
+.entry__freecompany__crest__image img {
+    display: block;
+    margin: 0 auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.fc-reload a {
+  float: right;
+  font-size: 30px;
+  vertical-align:middle;
+}
+
+.fc-remove a {
+  float: right;
+  font-size: 30px;
+}
+
+.fc-info span {
+  vertical-align:middle;
+}
+
+.fc-logo {
+  float: left;
+  margin: 0 20px 0 0;
+}
+
+.fc-name {
+  font-size: 16px;
+  margin: 10px 0 0 0;
+}
+
+.fc-server {
+  color: #73bfe6;
+  margin: 5px 0 0 0;
+}
+
+.fc-info:after {
+  content: "";
+  display: block;
+  clear: both;
+  
+}
+
+
 
 .nav-tabs { border: 0;}
 
@@ -71,6 +188,12 @@ button.btn-default {
   color: #ccc; 
 }
 
+input:hover,
+input:active,
+input:focus,
+select:hover,
+select:active,
+select:focus,
 button.btn-default:hover,
 button.btn-default:active,
 button.btn-default:focus {
@@ -84,6 +207,8 @@ button.btn-default:focus {
   border: 1px solid #3c3c3c;
   color: #ccc; 
   padding-right: 10px;
+  outline: 1px solid #1c1c1c;
+  border: 1px solid #3c3c3c;
 }
 
 table {
@@ -100,6 +225,7 @@ tr td, tr th{
   text-align: center;
   position: relative;
   border: 1px solid #3c3c3c;
+  position: relative;
 }
 
 tr td:first-child,
@@ -108,133 +234,165 @@ tr th:first-child {
 }
 
 .classjobs-table th {
-	cursor: pointer;
+  cursor: pointer;
 }
 .classjobs-table th:first-child {
-	cursor: initial;
+  cursor: initial;
 }
 
 th.sort-asc:after,
 th.sort-desc:after {
-	position: absolute;
-	top: 0;
-	left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 th.sort-desc:after {
-	content: "\25bc";
+  content: "\25bc";
 }
 th.sort-asc:after {
-	content: "\25b2";
+  content: "\25b2";
 }
 
 .delete-column {
-	position: absolute;
-	margin: 0;
-	top: 0px;
-	left: 65%;
-	color: #FFF;
-	border-radius: 20px;
-	border:1px solid #3c3c3c;
-	background: #1f1f1f;
-	width: 20px;
-	height: 20px;
-	display: block;
-	font-size: 12px;
-	padding: 0;
+  position: absolute;
+  margin: 0;
+  top: 0px;
+  left: 65%;
+  color: #FFF;
+  border-radius: 20px;
+  border:1px solid #3c3c3c;
+  background: #1f1f1f;
+  width: 20px;
+  height: 20px;
+  display: block;
+  font-size: 12px;
+  padding: 0;
 }
 .delete-column:hover {
-	background: #000;
-	color: #FFF;
-}
-
-.remove-character {
-	position: absolute;
-	top: 0px;
-	left: 37px;
-	color: #FFF;
-	border-radius: 20px;
-	border:1px solid #3c3c3c;
-	background: #1f1f1f;
-	width: 20px;
-	height: 20px;
-	display: block;
-	font-size: 12px;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-}
-.remove-character:hover {
-	background: #000;
-	color: #FFF;
-}
-
-.character-name {
-	margin-left: 5px;
+  background: #000;
+  color: #FFF;
 }
 
 .got-it {
-	margin:6px;
+  margin:6px;
 }
 
 .popover {
-	width: 500px;
-	background: #2E2E2E;    
-	border: 1px solid #3c3c3c;
+  width: 500px;
+  background: #2E2E2E;    
+  border: 1px solid #3c3c3c;
 }
 
 .popover {
-	width: 500px;
-	background: #2E2E2E;    
-	
+  width: 500px;
+  background: #2E2E2E;    
+  
 }
 .popover.top .arrow:after {
-	border-top-color: #3c3c3c;
+  border-top-color: #3c3c3c;
 }
 .popover .popover-title {
-	background: #2E2E2E;    
-	color: #BFA34C;
-	text-align: center;
-	font-weight: bold;
-	border-bottom: 1px solid #3c3c3c;
+  background: #2E2E2E;    
+  color: #BFA34C;
+  text-align: center;
+  font-weight: bold;
+  border-bottom: 1px solid #3c3c3c;
 }
 
 input[data-provide="typeahead"] {
-	text-transform:capitalize;
+  text-transform:capitalize;
 }
 
 .typeahead.dropdown-menu {
-	background: #2E2E2E;
-	border: 1px solid #3c3c3c;
+  background: #2E2E2E;
+  border: 1px solid #3c3c3c;
 }
 .typeahead .dropdown-item {
-	color: #ccc;
+  color: #ccc;
 }
 .typeahead .active .dropdown-item,
 .typeahead .active .dropdown-item:hover {
-	background: #1f1f1f;
+  background: #1f1f1f;
 }
 .typeahead .dropdown-item strong {
-	color: #BFA34C;
+  color: #BFA34C;
 }
 
-.classjob-icon {
-	width: 40px;
-	height: 40px;
-}
+.classjob-icon {}
 
 .classjob-lvl-0 {
-	color: transparent;
+  color: transparent;
 }
-.classjob-lvl-60 {
-	color: #BFA34C;
-	font-weight: bold;
+.classjob-lvl-70 {
+  color: #BFA34C;
+  font-weight: bold;
 }
 .ilvl {
-	display: block;
-	color: #45b2ae;
-	background: url('http://img.finalfantasyxiv.com/lds/pc/global/images/character/ic/gear.png?1486293696') no-repeat;
-	padding-left: 20px;
-	text-align: left;
-	margin: auto;
+  display: block;
+  color: #45b2ae;
+  background: url('http://img.finalfantasyxiv.com/lds/pc/global/images/character/ic/gear.png?1486293696') no-repeat;
+  padding-left: 20px;
+  text-align: left;
+  margin: auto;
+}
+
+/** Character row **/
+
+.table>tbody>tr>td.character-row {
+  padding: 0;
+}
+
+.character-row .character-name {
+  padding: 5px 0 5px 58px;
+  
+}
+
+.character-row .character-thumbnail {
+  float:left;
+  width: 53px
+}
+
+.character-row .character-actions {
+  float:left;
+  padding: 5px 0 0 5px;
+}
+
+.character-row .character-mounts-list,
+.character-row .character-minions-list {
+  padding: 0 10px 0 0; 
+}
+
+.character-row .remove-character {
+  
+}
+
+/** Item list modal box **/
+
+.items-track-progress-modal .modal-content {
+  background: #1f1f1f;
+  border: 1px solid #BFA34C;
+}
+
+.items-track-progress-modal .modal-header {
+  border-bottom: 1px solid #BFA34C;
+}
+
+.items-track-progress-list {
+  list-style: none;
+  display: block;
+}
+.items-track-progress-list li {
+  margin: 2px;
+  padding:0;
+}
+
+.items-track-progress-list li.owned img {
+  border: 2px solid green;
+  border-radius: 7px;
+}
+.items-track-progress-list li.missing img {
+  border: 2px solid red;
+  border-radius: 7px;
+  opacity: 0.3;
 }

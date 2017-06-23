@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>-FC- Progression</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -18,42 +18,59 @@
 
   </head>
   <body>
-    <div class="container-fluid">
-      <h1>Progression tracker</h1>
+    <div class="container-fluid wrapper">
+      <header>
+        <h1>FFXIV Progress tracker</h1>
+      </header>
 
-      <h2>Add character</h2>
 
       <!-- Manage Tables -->
-      <form>
-        <div class="row">
-          <!-- Add FC Character -->
-          <div class="col-lg-3">
+      
+      <div class="row">
+
+        <!-- Add FC Character -->
+        <div class="col-lg-6 track-free-company">
+          <h2>Track a Free Company</h2>
+          <form>
             <div class="input-group">
-              <select type="text" class="form-control fc-members-list"></select>
+              <div class="input-group-addon">Lodestone Free Company ID</div>
+              <input type="text" class="fc-id form-control" placeholder="Free company ID" required="true" size="20">
               <span class="input-group-btn">
-                <button class="add-fc-member btn btn-default" type="button" disabled>Add !</button>
+                <button class="add-lodestone-fc btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button>
               </span>
             </div>
-          </div>
-
-          <!-- Add Character by ID -->
-          <div class="col-lg-5">
-            <div class="input-group">
-              <div class="input-group-addon">http://fr.finalfantasyxiv.com/lodestone/character/</div>
-              <input type="text" class="character-id form-control" placeholder="Lodestone ID" required="true">
-              <span class="input-group-btn">
-                <button id="add-lodestone-character" class="btn btn-default" type="button">Add !</button>
-              </span> 
+          </form>
+          <div class="fc-info">
+            <div class="fc-remove">
+              <a class="btn" href="#" data-toggle="tooltip" title="Change Free company"><span class="glyphicon glyphicon-remove"></span></a>
             </div>
+            <div class="fc-reload">
+              <a class="btn" href="#" data-toggle="tooltip" title="Reload members"><span class="glyphicon glyphicon-refresh"></span></a>
+            </div>
+            <div class="fc-logo"></div>
+            <div class="fc-name"></div>
+            <div class="fc-server"></div>
           </div>
-
         </div>
-      </form>
 
+        <!-- Add Character by ID -->
+        <div class="col-lg-6">
+          <h2>Track a character</h2>
+          <div class="input-group">
+            <div class="input-group-addon">Lodestone Character ID</div>
+            <input type="text" class="character-id form-control" placeholder="Lodestone ID" required="true" value="3340215">
+            <span class="input-group-btn">
+              <button id="add-lodestone-character" class="btn btn-default" type="button"><span class="glyphicon glyphicon-plus"></span></button>
+            </span> 
+          </div>
+        </div>
+
+      </div>
+    
       <h2>Progression</h2>
 
       <!-- Nav tabs -->
-      <ul class="nav nav-tabs" role="tablist">
+      <ul class="nav nav-tabs">
         <li class="active"><a href="#mounts" data-toggle="tab">Mounts</a></li>
         <li ><a href="#minions" data-toggle="tab">Minions</a></li>
         <li ><a href="#classjobs" data-toggle="tab">Classes</a></li>
@@ -68,22 +85,22 @@
             <form id="add-mount-form" class="form-horizontal" action="">
               
               <!-- Add Mount from select box -->
-              <div class="col-sm-6">
-                <label for="mount-name" class="col-sm-5 control-label">Add a mount :</label>
-                <div class="input-group col-sm-7">
+              <div class="col-sm-6 odd-block">
+                <div class="input-group">
+                  <div class="input-group-addon">Add a mount</div>
                   <input type="text" id="mount-name" class="form-control mount-name" data-provide="typeahead" placeholder="Enter a name">
                   <span class="input-group-btn">
-                    <button id="add-mount" class="btn btn-default" type="submit">Add !</button>
+                    <button id="add-mount" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
                   </span>
                 </div>
               </div>
+              
+              <!-- Preset mounts lists -->
+              <div class="col-sm-6 even-block">
+                <ul class="list-inline preset-mounts-list"></ul>
+              </div>
 
             </form>
-              
-            <!-- Preset mounts lists -->
-            <div class="col-sm-6">
-              <ul class="list-inline preset-mounts-list"></ul>
-            </div>
 
           </div>
           
@@ -105,16 +122,23 @@
 
           <div class="row">
             <form id="add-minion-form" class="form-horizontal" action="">
-              <!-- Add Mount from select box -->
+
+              <!-- Add Minion from select box -->
               <div class="col-sm-6">
-                <label for="minion-name" class="col-sm-5 control-label">Add a minion :</label>
-                <div class="input-group col-sm-7">
+                <div class="input-group">
+                  <div class="input-group-addon">Add a minion</div>
                   <input type="text" id="minion-name" class="form-control minion-name" data-provide="typeahead" placeholder="Enter a name">
                   <span class="input-group-btn">
-                    <button id="add-minion" class="btn btn-default" type="submit">Add !</button>
+                    <button id="add-minion" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
                   </span>
                 </div>
               </div>
+
+              <!-- Preset minions lists -->
+              <div class="col-sm-6 even-block">
+                <ul class="list-inline preset-minions-list"></ul>
+              </div>
+
             </form>
           </div>
           
@@ -144,6 +168,30 @@
           </table>
         </div>
       </div>
+
     </div>
+  
+  
+    <!-- Item track progress Modal -->
+    <div class="items-track-progress-modal modal fade" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"></h4>
+          </div>
+          <div class="modal-body">
+            <ul class="items-track-progress-list list-inline"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      <p class="made-by">Made with <span class="glyphicon glyphicon-heart"></span> by <a target="_blank" href="http://fr.finalfantasyxiv.com/lodestone/character/3340215/">Kaal Damasca</a> of Moogle for <a target="_blank" href="http://commu-aggro.guilde-ff14.fr">La commu de l'aggro</a></p>
+      <p class="copyright">FINAL FANTASY is a registered trademark of Square Enix Holdings Co., Ltd. FINAL FANTASY XIV © 2010-<script>document.write(new Date().getFullYear())</script> SQUARE ENIX CO., LTD. All Rights Reserved.</p>
+    </footer>
+
+
   </body>
 </html>
