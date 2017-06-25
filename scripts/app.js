@@ -2,11 +2,46 @@
 $(document).ready(function(){
 
   // Init elements
+  var notifyFcLoading = null;
+
   $('.track-free-company').fcMembersSelect({
-    loaded: function(event, data) {
+    // FC loading start
+    start: function(event, data) {
       // Remove characters from current displayed table
       removeCharacters();
-      addCharacters(data.members);
+
+      // Notify FC loading has started
+      notifyFcLoading = $.notify('Loading <strong>'+ data.freeCompany.name +'</strong>.', {
+        type: "success",
+        allow_dismiss: false,
+        delay: 0,
+        showProgressbar: true
+      });
+    },
+    
+    // A FC member has been loaded
+    progress: function(event, data) {
+      
+      // Add loaded member into tables
+      mountsTable.addCharacters([data.member]);
+      minionsTable.addCharacters([data.member]);
+      classjobsTable.addCharacters([data.member]);
+
+      // Notify progression
+      notifyFcLoading.update('message', '<strong>'+data.member.name+'</strong> loaded');
+      notifyFcLoading.update('progress', data.progression);
+
+    },
+
+    // FC loading complete
+    complete: function(event, data) {
+      notifyFcLoading.close();
+      $.notify("Free Company <strong>"+ data.freeCompany.name +"</strong> loaded.", {
+        type: "success",
+        allow_dismiss: false,
+      });
+
+      achievementsTable.addCharacters(data.members);
     }
   });
 
@@ -29,19 +64,6 @@ $(document).ready(function(){
       type: data.type
     });
   });
-
-
-  /**
-   * Add a list of characters to the current displayed table.
-   * 
-   * @param {array} characters Array of Lodestone characters data
-   */
-  function addCharacters(characters) {
-    mountsTable.addCharacters(characters);
-    minionsTable.addCharacters(characters);
-    classjobsTable.addCharacters(characters);
-    achievementsTable.addCharacters(characters);
-  }
 
 
   /**

@@ -24,8 +24,12 @@ $.widget( "plugin.fcMembersSelect", {
     _initComponents: function() {
       var $this = this;
 
-      // First look in the local storage to reload previously tracked FC
-      if(sessionStorage.getItem("freeCompanyID")) {
+      // check if a free company ID was filled in URL
+      if($this._getUrlParameter('free-company')) {
+        $this.loadFcMembers($this._getUrlParameter('free-company'));
+      }
+      // look in the local storage to reload previously tracked FC
+      else if(sessionStorage.getItem("freeCompanyID")) {
         $this.loadFcMembers(sessionStorage.getItem("freeCompanyID"));
       } 
       // Or look into widget option to load configured FC
@@ -41,6 +45,25 @@ $.widget( "plugin.fcMembersSelect", {
       this._bindEvents();
     },
 
+    /**
+     * Get value of an URL parameter
+     * @param  {string} parameter Parameter to get
+     * @return {string}           Parameter value
+     */
+    _getUrlParameter: function (sParam) {
+      var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+      for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+          return sParameterName[1] === undefined ? true : sParameterName[1];
+        }
+      }
+    },
 
     /**
      * Retrieve all member's ID from a specified Free Company
@@ -55,92 +78,82 @@ $.widget( "plugin.fcMembersSelect", {
 
       // Retrieve the fc member html code from lodestone with YQL.
       return $.getJSON(yqlUrl)
-      .done(function(data) {
-        if(data.query.count > 0) {
-          var regexp = /\/lodestone\/character\/(\w*)\//;	// Prepare regexp to extract the member ID
+        .done(function(data) {
+          if(data.query.count > 0) {
+            var regexp = /\/lodestone\/character\/(\w*)\//;	// Prepare regexp to extract the member ID
 
-          var results   = $(data.query.results.result);
-          var fcName    = results.find(".entry__freecompany__name").text();  // retrieve FC name
-          
-          // Check if FC data was correctly loaded
-          if(fcName == "") {
-            $(document).trigger("notification", {message: "Free Company <strong>"+fcId+"</strong> was not found in Lodestone.", type: "danger"});
-            return $.Deferred().reject();
-          }
-
-          var fcMembers = results.find(".entry__flex");
-          var fcLogo    = results.find('.entry__freecompany__crest__image');
-          var fcServer  = results.find('.entry__freecompany__gc:last').text();
-
-          // Remove all previously loaded members
-          $this.removeMembers();
-
-          // Then add all members from new loaded FC
-          var fcMembersIds = [];
-          $.each(fcMembers, function(i, li) {
-            var lodestone_id = regexp.exec($(li).find('a').attr('href'))[1];	// Get member's id
-            fcMembersIds.push(lodestone_id);
-          });
-
-          // Store all needed FC data
-          $this.freeCompany.name    = fcName;
-          $this.freeCompany.server  = fcServer;
-          var numberOfMembers       = fcMembersIds.length;
-
-          // Update FC data
-          $('.fc-logo').html(fcLogo);     // Logo
-          $('.fc-name').html(fcName);     // Name
-          $('.fc-server').html(fcServer); // Server
-
-          // Save loaded FC into localstorage
-          sessionStorage.setItem("freeCompanyID", fcId);
-
-          var notify = $.notify('Loading <strong>'+ $this.freeCompany.name +'</strong>.', {
-            type: "success",
-            allow_dismiss: false,
-            delay: 0,
-            showProgressbar: true
-          });
-
-          // Load member's characters
-          $this.loadCharacters(fcMembersIds, new $.Deferred(), 0)
+            var results   = $(data.query.results.result);
+            var fcName    = results.find(".entry__freecompany__name").text();  // retrieve FC name
             
-            // On each character loading
-            .progress(function(character, remainingCharactersToLoad){
+            // Check if FC data was correctly loaded
+            if(fcName == "") {
+              $(document).trigger("notification", {message: "Free Company <strong>"+fcId+"</strong> was not found in Lodestone.", type: "danger"});
               
-              // Notify loading progress
-              var percentProgression = (numberOfMembers-remainingCharactersToLoad.length)/numberOfMembers*100;
-              notify.update('message', '<strong>'+character.name+'</strong> loaded');
-              notify.update('progress', percentProgression);
-            })
-            
-            // When all characters are loaded
-            .done(function(){
+              // Hide FC data and display form to load a new FC
+              $this.element.find('.fc-info').addClass('hidden');
+              $this.element.find('form').removeClass('hidden');
 
-              // Trigger event to fill table with FC members + notifications
-              notify.close();
-              setTimeout(function(){
-                $.notify("Free Company <strong>"+ $this.freeCompany.name +"</strong> loaded.", {
-                  type: "success",
-                  allow_dismiss: false,
-                });
-              }, 1000);
-              
-              // Hide form for selecting FC, then show FC data
-              $this.element.find('form').addClass('hidden');
-              $('.add-lodestone-fc').button('reset');
-              $this.element.find('.fc-info').removeClass('hidden');
-              
-              // Add loaded characters to track table
-              $this._trigger("loaded", {}, {"members": $this.freeCompany.members});              
+              return $.Deferred().reject();
+            }
+
+            var fcMembers = results.find(".entry__flex");
+            var fcLogo    = results.find('.entry__freecompany__crest__image');
+            var fcServer  = results.find('.entry__freecompany__gc:last').text();
+
+            // Remove all previously loaded members
+            $this.removeMembers();
+
+            // Then add all members from new loaded FC
+            var fcMembersIds = [];
+            $.each(fcMembers, function(i, li) {
+              var lodestone_id = regexp.exec($(li).find('a').attr('href'))[1];	// Get member's id
+              fcMembersIds.push(lodestone_id);
             });
-        }
-  		})
-      .fail(function(data) {
-        // Hide FC data and display form to load a new FC
-        $this.element.find('.fc-info').addClass('hidden');
-        $this.element.find('form').removeClass('hidden');
-      });
+
+            // Store all needed FC data
+            $this.freeCompany.name    = fcName;
+            $this.freeCompany.server  = fcServer;
+            var numberOfMembers       = fcMembersIds.length;
+
+            // Update FC data
+            $('.fc-logo').html(fcLogo);     // Logo
+            $('.fc-name').html(fcName);     // Name
+            $('.fc-server').html(fcServer); // Server
+
+            // Save loaded FC into localstorage
+            sessionStorage.setItem("freeCompanyID", fcId);
+
+            $this._trigger("start", {}, {"freeCompany": $this.freeCompany});
+
+            // Load member's characters
+            $this.loadCharacters(fcMembersIds, new $.Deferred(), 0)
+              
+              // On each character loading
+              .progress(function(character, remainingCharactersToLoad){
+                
+                // Notify loading progress
+                var percentProgression = (numberOfMembers-remainingCharactersToLoad.length)/numberOfMembers*100;
+                $this._trigger("progress", {}, {"member": character, "progression": percentProgression});
+              })
+              
+              // When all characters are loaded
+              .done(function(){
+                
+                // Hide form for selecting FC, then show FC data
+                $this.element.find('form').addClass('hidden');
+                $('.add-lodestone-fc').button('reset');
+                $this.element.find('.fc-info').removeClass('hidden');
+                
+                // Add loaded characters to track table
+                $this._trigger("complete", {}, {"members": $this.freeCompany.members, "freeCompany": $this.freeCompany});              
+              });
+          }
+    		})
+        .fail(function(data) {
+          // Hide FC data and display form to load a new FC
+          $this.element.find('.fc-info').addClass('hidden');
+          $this.element.find('form').removeClass('hidden');
+        });
     },
 
 
@@ -198,7 +211,7 @@ $.widget( "plugin.fcMembersSelect", {
         e.preventDefault();
         
         // Trigger event to fill table with FC members + notifications
-        $this._trigger("loaded", {}, {"members": $this.freeCompany.members});
+        $this._trigger("complete", {}, {"members": $this.freeCompany.members});
         $(document).trigger("notification", {message: "Free Company <strong>"+ $this.freeCompany.name +"</strong> loaded.", type: "success"});  
       });
 
