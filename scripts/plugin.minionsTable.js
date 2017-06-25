@@ -104,32 +104,18 @@ $.widget( "plugin.minionsTable", {
 
 
     /**
-     * Retrieve character data by ID from API
+     * Add Character to table
      * 
-     * @param {int} characterId Character lodestone ID
+     * @param {Object} character Character lodestone data
      */
-    addCharacter: function(characterId) {
-    	var $this = this;
+    addCharacter: function(character) {
+      var $this = this;
 
-      // No character ID
-      if (characterId == null) return;
-
-      // Character is already displayed
-      var CharacterIndex = $this.options.displayedCharacters.findIndex(character => character.lodestone_id == characterId);
-      if (CharacterIndex != -1) {
-          // Hightlight the character row
-          $this.element.find('tbody tr:eq('+CharacterIndex +')').effect("highlight", {}, 500);
-        return;
-      }
-
-      // Load character data
-      return $.ajax("https://api.xivdb.com/character/"+characterId)
-      .done(function(newCharacter) {
-        // Save retrieved character
-        $this.options.displayedCharacters.push(newCharacter);
-        // Update table by adding a new row
-        $this.addRow(newCharacter);
-      });
+      // Save retrieved character
+      $this.options.displayedCharacters.push(character);
+      
+      // Update table by adding a new row
+      $this.addRow(character);
     },
 
 
@@ -170,7 +156,7 @@ $.widget( "plugin.minionsTable", {
      * @param {object} character Object with character data
      */
     addRow: function(character) {
-    	var $this = this;
+      var $this = this;
 
       var newLine = $('<tr>');
       newLine.append('<td class="character-row"><img class="character-thumbnail" width="40px" src="'+character.avatar+'" /><div class="character-name">'+character.name+'</div><div class="character-actions"><a class="character-minions-list" href="#"><span class="glyphicon glyphicon-th"></span> List</a><a class="remove-character" href="#"><span class="glyphicon glyphicon-remove"></span> Remove</a></td>');

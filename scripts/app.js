@@ -1,9 +1,9 @@
 // App bootstrap
 $(document).ready(function(){
-  
+
   // Init elements
   $('.track-free-company').fcMembersSelect({
-    fcMembersRetrieved: function(event, data) {
+    loaded: function(event, data) {
       // Remove characters from current displayed table
       removeCharacters();
       addCharacters(data.members);
@@ -13,6 +13,14 @@ $(document).ready(function(){
   $('table.mounts-table').mountsTable();
   $('table.minions-table').minionsTable();
   $('table.classjobs-table').classjobsTable();
+  $('table.progression-table').achievementsTable();
+
+  var mountsTable       = $('table.mounts-table').mountsTable("instance");
+  var minionsTable      = $('table.minions-table').minionsTable("instance");
+  var classjobsTable    = $('table.classjobs-table').classjobsTable("instance");
+  var achievementsTable = $('table.progression-table').achievementsTable("instance");
+
+
 
   // Display notification when corresponding event is triggered
   $(document).on('notification', function(event, data) {
@@ -23,53 +31,28 @@ $(document).ready(function(){
     });
   });
 
-  // When user wants to add a new character from a lodestone id
-  $('.add-lodestone-character').on('submit', function(e) {
-    e.preventDefault();
-
-    var characterId = $('.character-id').val();
-
-    addCharacter(characterId);
-  });
-
 
   /**
    * Add a list of characters to the current displayed table.
-   * Mass ajax query performing once at a time.
    * 
-   * @param {array} charactersId Array of Lodestone characters id
+   * @param {array} characters Array of Lodestone characters data
    */
-  function addCharacters(charactersId) {
-    if(charactersId.length > 0) {
-      var promise = $.when(1);
-      $.each(charactersId, function(i){
-        promise = promise.then(function() {
-          promise = addCharacter(charactersId[i]);
-        });
-      });
-    }
+  function addCharacters(characters) {
+    $.each(characters, function(i, character){
+      addCharacter(character);
+    });
   }
 
 
   /**
    * Add selected character to current displayed table
-   * @param {int} charactersId Lodestone character ID 
+   * @param {int} charactersId Lodestone character data
    */
-  function addCharacter(characterId) {
-    var currentActiveTab = $('.tab-pane.active').attr('id');
-    switch (currentActiveTab) {
-      case "mounts":
-        return $('table.mounts-table').mountsTable("instance").addCharacter(characterId);
-        break;
-  
-      case "minions":
-        return $('table.minions-table').minionsTable("instance").addCharacter(characterId);
-        break;  
-  
-      case "classjobs":
-        return $('table.classjobs-table').classjobsTable("instance").addCharacter(characterId);
-        break;  
-    }
+  function addCharacter(character) {
+    mountsTable.addCharacter(character);
+    minionsTable.addCharacter(character);
+    classjobsTable.addCharacter(character);
+    achievementsTable.addCharacter(character);
   }
 
 
@@ -78,20 +61,10 @@ $(document).ready(function(){
    * @return {[type]} [description]
    */
   function removeCharacters() {
-    var currentActiveTab = $('.tab-pane.active').attr('id');
-    switch (currentActiveTab) {
-      case "mounts":
-        return $('table.mounts-table').mountsTable("instance").removeCharacters();
-        break;
-  
-      case "minions":
-        return $('table.minions-table').minionsTable("instance").removeCharacters();
-        break;  
-  
-      case "classjobs":
-        return $('table.classjobs-table').classjobsTable("instance").removeCharacters();
-        break;  
-    }
+    mountsTable.removeCharacters();
+    minionsTable.removeCharacters();
+    classjobsTable.removeCharacters();
+    achievementsTable.removeCharacters();
   }
 
 });

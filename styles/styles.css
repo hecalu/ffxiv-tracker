@@ -375,7 +375,8 @@ input[data-provide="typeahead"] {
 }
 
 .character-row .character-mounts-list,
-.character-row .character-minions-list {
+.character-row .character-minions-list,
+.character-row .character-achievements-list {
   padding: 0 10px 0 0; 
 }
 
@@ -383,32 +384,47 @@ input[data-provide="typeahead"] {
   
 }
 
+.private-achievements .character-name,
+.private-achievements .character-thumbnail {
+  opacity: 0.2;
+}
+.private-achievements .glyphicon-info-sign {
+  color: #BFA34C;
+  font-size: 15px;
+  padding-left:5px;
+}
+
 /** Item list modal box **/
 
-.items-track-progress-modal .modal-content {
+
+.items-track-progress-modal .modal-content,
+.achievements-track-progress-modal .modal-content {
   background: #1f1f1f;
   border: 1px solid #BFA34C;
 }
 
-.items-track-progress-modal .modal-header {
+.items-track-progress-modal .modal-header,
+.achievements-track-progress-modal .modal-header {
   border-bottom: 1px solid #BFA34C;
 }
 
-.items-track-progress-list {
+.items-track-progress-list,
+.achievements-track-progress-list {
   list-style: none;
   display: block;
 }
+
 .items-track-progress-list li {
   margin: 2px;
   padding:0;
 }
 
 .items-track-progress-list li.owned img {
-  border: 2px solid green;
+  border: 2px solid #BFA34C;
   border-radius: 7px;
 }
 .items-track-progress-list li.missing img {
-  border: 2px solid red;
+  border: 2px solid gray;
   border-radius: 7px;
   opacity: 0.3;
 }

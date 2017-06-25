@@ -105,41 +105,25 @@ $.widget( "plugin.classjobsTable", {
       });
     },
 
-
+    
     /**
-     * Retrieve character data by ID from API
+     * Add Character to table
      * 
-     * @param {int} characterId Character lodestone ID
+     * @param {Object} character Character lodestone data
      */
-    addCharacter: function(characterId) {
+    addCharacter: function(character) {
       var $this = this;
 
-      // No character ID
-      if (characterId == null) return;
+      // Add active class in classjobs list
+      character.data.classjobs[character.data.active_class.role.id] = {level : character.data.active_class.progress.level};
 
-      // Character is already displayed
-      var CharacterIndex = $this.options.displayedCharacters.findIndex(character => character.lodestone_id == characterId);
-      if (CharacterIndex != -1) {
-          // Hightlight the character row
-          $this.element.find('tbody tr:eq('+CharacterIndex +')').effect("highlight", {}, 500);
-        return;
-      }
-
-      // Load character data
-      return $.ajax("https://api.xivdb.com/character/"+characterId)
-      .done(function(newCharacter) {
-
-        // Add active class in classjobs list
-        newCharacter.data.classjobs[newCharacter.data.active_class.role.id] = {level : newCharacter.data.active_class.progress.level};
-
-        // Save retrieved character
-        $this.options.displayedCharacters.push(newCharacter);
-        
-        // Update table by adding a new row
-        $this.addRow(newCharacter);
-      });
-     
+      // Save retrieved character
+      $this.options.displayedCharacters.push(character);
+      
+      // Update table by adding a new row
+      $this.addRow(character);
     },
+
 
     // Save newly added classjob
     addClassjob: function(classjob) {

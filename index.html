@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="utf-8">
-    <title>-FC- Progression</title>
+    <title>FFXIV Free Company tracker</title>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
     <link rel="stylesheet" href="styles/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -14,6 +14,7 @@
     <script src="scripts/plugin.mountsTable.js"></script>
     <script src="scripts/plugin.minionsTable.js"></script>
     <script src="scripts/plugin.classjobsTable.js"></script>
+    <script src="scripts/plugin.achievementsTable.js"></script>
     <script src="scripts/bootstrap-notify.min.js"></script>
     <script src="scripts/app.js"></script>
 
@@ -22,7 +23,7 @@
     <div class="container-fluid wrapper">
      
       <header>
-        <h1>FFXIV Progress tracker</h1>
+        <h1>FFXIV Free Company Progress tracker</h1>
       </header>
 
       <!-- Track FC/Character -->
@@ -54,29 +55,17 @@
           </div>
         </div>
 
-        <!-- Add Character by ID -->
-        <div class="col-lg-6">
-          <h2>Track a character</h2>
-          <form class="add-lodestone-character">
-            <div class="input-group">
-              <div class="input-group-addon">Lodestone Character ID</div>
-              <input type="text" class="add-character-button form-control" placeholder="Lodestone ID" required="true" value="3340215">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
-              </span> 
-            </div>
-          </form>
-        </div>
-
       </div>
-    
+
+
       <h2>Progression</h2>
 
       <!-- Nav tabs -->
-      <ul class="nav nav-tabs">
+      <ul class="track-table nav nav-tabs">
         <li class="active"><a href="#mounts" data-toggle="tab">Mounts</a></li>
-        <li ><a href="#minions" data-toggle="tab">Minions</a></li>
-        <li ><a href="#classjobs" data-toggle="tab">Classes</a></li>
+        <li ><a href="#minions"     data-toggle="tab">Minions</a></li>
+        <li ><a href="#classjobs"   data-toggle="tab">Classes</a></li>
+        <li ><a href="#progression" data-toggle="tab">Progression</a></li>
       </ul>
 
       <div class="tab-content">
@@ -170,8 +159,30 @@
             </tbody>
           </table>
         </div>
-      </div>
 
+        <!-- Character Progression -->
+        <div class="tab-pane" id="progression">
+          <div class="row">
+            <!-- Preset achievements lists -->
+            <div class="col-sm-12 even-block">
+              <ul class="list-inline preset-achievements-list"></ul>
+            </div>
+          </div>
+
+          <hr />
+
+          <table class="table progression-table">
+            <thead>
+              <tr>
+                <th class="col-lg-2">Progression</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
     </div>
   
   
@@ -185,6 +196,28 @@
           </div>
           <div class="modal-body">
             <ul class="items-track-progress-list list-inline"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Achievements track progress Modal -->
+    <div class="achievements-track-progress-modal modal fade" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"></h4>
+          </div>
+          <div class="modal-body">
+            <div class="achievements-track-progress-list"></div>
+            <div class="media hidden">
+              <div class="media-left"><a href="#"><img class="media-object" src=""></a></div>
+              <div class="media-body">
+                <h4 class="media-heading"></h4>
+                <p class="media-help"></p>  
+              </div>
+            </div>
           </div>
         </div>
       </div>

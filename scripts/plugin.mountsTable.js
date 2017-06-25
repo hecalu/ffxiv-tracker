@@ -108,7 +108,7 @@ $.widget( "plugin.mountsTable", {
      * @param {object} mount Mount data to add in the new header's column
      */
     addColumnHeader: function(mount){
-    	var $this = this;
+      var $this = this;
 
       var columnHeader = $('<th><img data-toggle="popover" data-mount-id="'+mount.id+'" src="https://secure.xivdb.com/img/game/004000/00'+mount.icon+'.png" title="'+mount.name_fr+'" data-content="'+mount.info1_fr+'" /><p><a class="btn delete-column delete-mount">x</a></p>');
           
@@ -116,7 +116,7 @@ $.widget( "plugin.mountsTable", {
       this.element.find('thead tr').append(columnHeader.hide().fadeIn());
       
       // Enable popover
-      $('[data-toggle="popover"]').popover({
+      this.element.find('[data-toggle="popover"]').popover({
         placement: "top",
         trigger: "hover"
       });
@@ -132,31 +132,18 @@ $.widget( "plugin.mountsTable", {
 
 
     /**
-     * Retrieve character data by ID from API
+     * Add Character to table
      * 
-     * @param {int} characterId Character lodestone ID
+     * @param {Object} character Character lodestone data
      */
-    addCharacter: function(characterId) {
-    	var $this = this;
-      // No character ID
-      if (characterId == null) return;
+    addCharacter: function(character) {
+      var $this = this;
 
-      // Character is already displayed
-      var CharacterIndex = this.options.displayedCharacters.findIndex(character => character.lodestone_id == characterId);
-      if (CharacterIndex != -1) {
-          // Hightlight the character row
-          this.element.find('tbody tr:eq('+CharacterIndex +')').effect("highlight", {}, 500);
-        return;
-      }
-
-      // Load character data
-      return $.ajax("https://api.xivdb.com/character/"+characterId)
-      .done(function(newCharacter) {
-        // Save retrieved character
-        $this.options.displayedCharacters.push(newCharacter);
-        // Update table by adding a new row
-        $this.addRow(newCharacter);
-      });
+      // Save retrieved character
+      $this.options.displayedCharacters.push(character);
+      
+      // Update table by adding a new row
+      $this.addRow(character);
     },
 
 
