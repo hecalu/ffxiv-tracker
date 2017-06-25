@@ -393,6 +393,9 @@ input[data-provide="typeahead"] {
   font-size: 15px;
   padding-left:5px;
 }
+.private-achievements td {
+  background: #222;
+}
 
 /** Item list modal box **/
 

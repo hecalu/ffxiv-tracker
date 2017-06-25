@@ -190,9 +190,11 @@ $.widget( "plugin.achievementsTable", {
         // remove list link and add an info sign to explain how to set achievements public.
         newLine.find('.character-achievements-list').remove();
         newLine.addClass('private-achievements');
-        newLine.find('.character-actions').append('<span class="glyphicon glyphicon-info-sign" img data-toggle="popover" title="Private achievements" data-content="We cannot access to your progression.\nGo on Lodestone into Home > Account management, and change the privacy setting to public.\nYou will have to wait few days before accessing to your progression."></span>');
-
-        this.element.find('[data-toggle="popover"]').popover({
+        newLine.attr({
+          "data-toggle": "popover",
+          "title": "Private achievements",
+          "data-content": "We cannot access to your progression.\nGo on Lodestone into Home > Account management, and change the privacy setting to public.\nYou will have to wait few days before accessing to your progression."
+        }).popover({
           placement: "top",
           trigger: "hover"
         });
