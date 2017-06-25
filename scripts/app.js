@@ -21,7 +21,6 @@ $(document).ready(function(){
   var achievementsTable = $('table.progression-table').achievementsTable("instance");
 
 
-
   // Display notification when corresponding event is triggered
   $(document).on('notification', function(event, data) {
     $.notify({
@@ -38,21 +37,10 @@ $(document).ready(function(){
    * @param {array} characters Array of Lodestone characters data
    */
   function addCharacters(characters) {
-    $.each(characters, function(i, character){
-      addCharacter(character);
-    });
-  }
-
-
-  /**
-   * Add selected character to current displayed table
-   * @param {int} charactersId Lodestone character data
-   */
-  function addCharacter(character) {
-    mountsTable.addCharacter(character);
-    minionsTable.addCharacter(character);
-    classjobsTable.addCharacter(character);
-    achievementsTable.addCharacter(character);
+    mountsTable.addCharacters(characters);
+    minionsTable.addCharacters(characters);
+    classjobsTable.addCharacters(characters);
+    achievementsTable.addCharacters(characters);
   }
 
 

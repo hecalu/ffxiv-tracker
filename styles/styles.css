@@ -95,6 +95,13 @@ hr {
 [data-notify="container"][class*="alert-success"] strong {
   color: #73bfe6;
 }
+[data-notify="container"] .progress {
+  background: #1f1f1f;
+  height: 10px;
+}
+[data-notify="container"] .progress-bar {
+  background: #73bfe6;
+}
 
 
 /** FC Information **/
@@ -219,12 +226,11 @@ button.btn-default:focus {
 }
 
 .input-group-addon {
-  background: #3c3c3c;    
+  background: #3c3c3c;
+  outline: 1px solid #1c1c1c;
   border: 1px solid #3c3c3c;
   color: #ccc; 
   padding-right: 10px;
-  outline: 1px solid #1c1c1c;
-  border: 1px solid #3c3c3c;
 }
 
 table {

@@ -34,7 +34,7 @@ $.widget( "plugin.fcMembersSelect", {
       } 
       // Otherwise, display the form to select a FC
       else {
-        $this.element.find('form').fadeIn();
+        $this.element.find('form').removeClass('hidden');
       }
 
       // Bind events
@@ -76,15 +76,16 @@ $.widget( "plugin.fcMembersSelect", {
           $this.removeMembers();
 
           // Then add all members from new loaded FC
-          var fcMembersID = [];
+          var fcMembersIds = [];
           $.each(fcMembers, function(i, li) {
             var lodestone_id = regexp.exec($(li).find('a').attr('href'))[1];	// Get member's id
-            fcMembersID.push(lodestone_id);
+            fcMembersIds.push(lodestone_id);
           });
-          
+
           // Store all needed FC data
           $this.freeCompany.name    = fcName;
           $this.freeCompany.server  = fcServer;
+          var numberOfMembers       = fcMembersIds.length;
 
           // Update FC data
           $('.fc-logo').html(fcLogo);     // Logo
@@ -94,54 +95,87 @@ $.widget( "plugin.fcMembersSelect", {
           // Save loaded FC into localstorage
           sessionStorage.setItem("freeCompanyID", fcId);
 
-          $(document).trigger("notification", {message: "Loading <strong>"+ $this.freeCompany.name +"</strong>.", type: "success"});  
+          var notify = $.notify('Loading <strong>'+ $this.freeCompany.name +'</strong>.', {
+            type: "success",
+            allow_dismiss: false,
+            delay: 0,
+            showProgressbar: true
+          });
 
           // Load member's characters
-          $this.loadCharacters(fcMembersID);
+          $this.loadCharacters(fcMembersIds, new $.Deferred(), 0)
+            
+            // On each character loading
+            .progress(function(character, remainingCharactersToLoad){
+              
+              // Notify loading progress
+              var percentProgression = (numberOfMembers-remainingCharactersToLoad.length)/numberOfMembers*100;
+              notify.update('message', '<strong>'+character.name+'</strong> loaded');
+              notify.update('progress', percentProgression);
+            })
+            
+            // When all characters are loaded
+            .done(function(){
+
+              // Trigger event to fill table with FC members + notifications
+              notify.close();
+              setTimeout(function(){
+                $.notify("Free Company <strong>"+ $this.freeCompany.name +"</strong> loaded.", {
+                  type: "success",
+                  allow_dismiss: false,
+                });
+              }, 1000);
+              
+              // Hide form for selecting FC, then show FC data
+              $this.element.find('form').addClass('hidden');
+              $('.add-lodestone-fc').button('reset');
+              $this.element.find('.fc-info').removeClass('hidden');
+              
+              // Add loaded characters to track table
+              $this._trigger("loaded", {}, {"members": $this.freeCompany.members});              
+            });
         }
   		})
       .fail(function(data) {
         // Hide FC data and display form to load a new FC
-        $this.element.find('.fc-info').fadeOut(function(){
-          $this.element.find('form').fadeIn();
-        });
+        $this.element.find('.fc-info').addClass('hidden');
+        $this.element.find('form').removeClass('hidden');
       });
     },
 
 
     /**
-     * Load characters data from array ID.
-     * @param  {Array} charactersId IDs of FC's members
-     * @return {Promise}
+     * Recursively load characters data from array ID.
+     * @param  {Array} charactersIds IDs of FC's members
+     * @param  {Deffered} dfd Deffered object
+     * @param  {Int} level Number of recursive loop
      */
-    loadCharacters: function(charactersId) {
+    loadCharacters: function(charactersIds, dfd, level) {
       var $this = this;
 
-      if (charactersId.length == 0) {
-        // Trigger event to fill table with FC members + notifications
-        $this._trigger("loaded", {}, {"members": $this.freeCompany.members});
-        $(document).trigger("notification", {message: "Free Company <strong>"+ $this.freeCompany.name +"</strong> loaded.", type: "success"});  
-        
-        // Hide form for selecting FC, then show FC data
-        $this.element.find('form').fadeOut(function(){
-          $this.element.find('.fc-info').fadeIn();
-          $('.add-lodestone-fc').button('reset');
-        });
+      if (charactersIds.length == 0) {
+          // Once loading complete
+          dfd.resolve();
 
       } else {
         // Load character data
-        $.ajax("https://api.xivdb.com/character/"+charactersId.shift())
+        $.ajax("https://api.xivdb.com/character/"+charactersIds.shift())
         
-        .done(function(newCharacter) {
+        .done(function(character) {
+          dfd.notify(character, charactersIds);
           // Update table by adding a new row
-          $this.freeCompany.members.push(newCharacter);
+          $this.freeCompany.members.push(character);
         })
         
         .always(function(){
-          $this.loadCharacters(charactersId);
+          $this.loadCharacters(charactersIds, dfd, level+1);
         });
       }
 
+      // At firt recursion, create the promise
+      if(level == 0) {
+        return dfd.promise();
+      }
     },
 
 
@@ -149,7 +183,7 @@ $.widget( "plugin.fcMembersSelect", {
      * Remove all loaded FC members
      */
     removeMembers: function() {
-      this.freeCompany.members = [];
+      this.freeCompany.members    = [];
     },
 
 
@@ -173,9 +207,8 @@ $.widget( "plugin.fcMembersSelect", {
         e.preventDefault();
         
         // Hide FC data and display form to load a new FC
-        $this.element.find('.fc-info').fadeOut(function(){
-          $this.element.find('form').fadeIn();
-        });
+        $this.element.find('.fc-info').addClass('hidden');
+        $this.element.find('form').removeClass('hidden');
       });
 
       // When tracking a new fc.

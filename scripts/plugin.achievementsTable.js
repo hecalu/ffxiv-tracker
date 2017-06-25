@@ -105,41 +105,58 @@ $.widget( "plugin.achievementsTable", {
 
 
     /**
-     * Add Character to table
+     * Add Characters to table
      * 
-     * @param {Object} character Character lodestone data
+     * @param {Array} characters Characters lodestone data
      */
-    addCharacter: function(character) {
+    addCharacters: function(characters) {
       var $this = this;
 
-      if(character.achievements_public == 1) {
-        // Check if character has public achievements. Otherwise, we can't gather any progression data.
-        return $.ajax({
-          url: "https://api.xivdb.com/character/"+character.lodestone_id+"?data=achievements",
-          async: false
-        })
-        .done(function(achievements) {
-          // Store retrieved character's achievements
-          character.achievements = achievements;
+      $this.recursiveAddCharacter(characters);
+    },
+
+
+    /**
+     * Recursively load Character and add them to table
+     * 
+     * @param {Array} characters Characters lodestone data
+     */
+    recursiveAddCharacter: function(characters) {
+      var $this = this;
+
+      var character = characters.shift();
+      if (characters.length > 0) {
+
+        if(character.achievements_public == 1) {
+          // Check if character has public achievements. Otherwise, we can't gather any progression data.
+          $.ajax("https://api.xivdb.com/character/"+character.lodestone_id+"?data=achievements")
+          .done(function(achievements) {
+            // Store retrieved character's achievements
+            character.achievements = achievements;
+
+            // Save retrieved character
+            $this.options.displayedCharacters.push(character);
+
+            // Update table by adding a new row
+            $this.addRow(character);
+          })
+          .always(function(){
+            $this.recursiveAddCharacter(characters);
+          });
+
+        } else {
+          // Can't access achievement data. Just init an empty array of achievements
+          character.achievements = [];
 
           // Save retrieved character
           $this.options.displayedCharacters.push(character);
 
           // Update table by adding a new row
           $this.addRow(character);
-        });
 
-      } else {
-        // Can't access achievement data. Just init an empty array of achievements
-        character.achievements = [];
-
-        // Save retrieved character
-        $this.options.displayedCharacters.push(character);
-
-        // Update table by adding a new row
-        $this.addRow(character);
-      }
-      
+          $this.recursiveAddCharacter(characters);
+        }
+      }  
     },
 
 

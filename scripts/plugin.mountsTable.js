@@ -132,6 +132,20 @@ $.widget( "plugin.mountsTable", {
 
 
     /**
+     * Add Characters to table
+     * 
+     * @param {Array} characters Characters lodestone data
+     */
+    addCharacters: function(characters) {
+      var $this = this;
+
+      $.each(characters, function(i, character){
+        $this.addCharacter(character);
+      });
+    },
+
+
+    /**
      * Add Character to table
      * 
      * @param {Object} character Character lodestone data
