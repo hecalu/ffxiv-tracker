@@ -4,10 +4,12 @@
     <meta charset="utf-8">
     <title>FFXIV Free Company tracker</title>
     <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/flag-icon.min.css">
     <link rel="stylesheet" href="styles/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/jquery-ui.min.js"></script>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/i18next-1.11.2.min.js"></script>
     <script src="scripts/typeahead.jquery.js"></script>
     <script src="scripts/jquery.sortElements.js"></script>
     <script src="scripts/bootstrap-notify.min.js"></script>
@@ -23,7 +25,18 @@
     <div class="container-fluid wrapper">
      
       <header>
+
+        <div class="pull-right translation hide">
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default active" data-lang="en"> <span class="flag-icon flag-icon-us"></span></button>
+            <button type="button" class="btn btn-default" data-lang="fr"> <span class="flag-icon flag-icon-fr"></span></button>
+            <button type="button" class="btn btn-default" data-lang="de"> <span class="flag-icon flag-icon-de"></span></button>
+          </div>
+         
+        </div>
+
         <h1>FFXIV Free Company Progress tracker</h1>
+
       </header>
 
       <!-- Track FC/Character -->
@@ -32,11 +45,11 @@
 
         <!-- Add FC Character -->
         <div class="col-lg-6 track-free-company">
-          <h2>Track a Free Company</h2>
+          <h2 data-i18n="app.track_fc"></h2>
           <form class="hidden">
             <div class="input-group">
-              <div class="input-group-addon">Lodestone Free Company ID</div>
-              <input type="text" class="fc-id form-control" placeholder="Free company ID" required="true" size="20">
+              <div class="input-group-addon" data-i18n="app.fc_id"></div>
+              <input type="text" class="fc-id form-control" placeholder="Ex: 9233364398528036665" required="true" size="20">
               <span class="input-group-btn">
                 <button class="add-lodestone-fc btn btn-default" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
               </span>
@@ -58,14 +71,14 @@
       </div>
 
 
-      <h2>Progression</h2>
+      <h2 data-i18n="app.progression.title"></h2>
 
       <!-- Nav tabs -->
       <ul class="track-table nav nav-tabs">
-        <li class="active"><a href="#mounts" data-toggle="tab">Mounts</a></li>
-        <li ><a href="#minions"     data-toggle="tab">Minions</a></li>
-        <li ><a href="#classjobs"   data-toggle="tab">Classes</a></li>
-        <li ><a href="#progression" data-toggle="tab">Progression</a></li>
+        <li class="active"><a data-i18n="app.mounts.tab" href="#mounts" data-toggle="tab"></a></li>
+        <li ><a data-i18n="app.minions.tab" href="#minions"     data-toggle="tab"></a></li>
+        <li ><a data-i18n="app.classes.tab" href="#classjobs"   data-toggle="tab"></a></li>
+        <li ><a data-i18n="app.progression.tab" href="#progression" data-toggle="tab"></a></li>
       </ul>
 
       <div class="tab-content">
@@ -79,8 +92,8 @@
               <!-- Add Mount from select box -->
               <div class="col-sm-6 odd-block">
                 <div class="input-group">
-                  <div class="input-group-addon">Add a mount</div>
-                  <input type="text" id="mount-name" class="form-control mount-name" data-provide="typeahead" placeholder="Enter a name">
+                  <div data-i18n="app.mounts.add" class="input-group-addon"></div>
+                  <input autocomplete="off" type="text" id="mount-name" class="form-control mount-name" data-provide="typeahead" data-i18n="[placeholder]app.mounts.placeholder">
                   <span class="input-group-btn">
                     <button id="add-mount" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
                   </span>
@@ -101,7 +114,7 @@
           <table class="table mounts-table">
             <thead>
               <tr>
-                <th class="col-lg-2">Characters</th>
+                <th data-i18n="app.characters.title" class="col-lg-2"></th>
               </tr>
             </thead>
             <tbody>
@@ -118,8 +131,8 @@
               <!-- Add Minion from select box -->
               <div class="col-sm-6">
                 <div class="input-group">
-                  <div class="input-group-addon">Add a minion</div>
-                  <input type="text" id="minion-name" class="form-control minion-name" data-provide="typeahead" placeholder="Enter a name">
+                  <div data-i18n="app.minions.add" class="input-group-addon"></div>
+                  <input autocomplete="off" type="text" id="minion-name" class="form-control minion-name" data-provide="typeahead" data-i18n="[placeholder]app.minions.placeholder" placeholder="Enter a name">
                   <span class="input-group-btn">
                     <button id="add-minion" class="btn btn-default" type="submit"><span class="glyphicon glyphicon-plus"></span></button>
                   </span>
@@ -139,7 +152,7 @@
           <table class="table minions-table">
             <thead>
               <tr>
-                <th class="col-lg-2">Characters</th>
+                <th data-i18n="app.characters.title" class="col-lg-2"></th>
               </tr>
             </thead>
             <tbody>
@@ -152,7 +165,7 @@
           <table class="table classjobs-table">
             <thead>
               <tr>
-                <th class="col-lg-2">Characters</th>
+                <th data-i18n="app.characters.title" class="col-lg-2"></th>
               </tr>
             </thead>
             <tbody>
@@ -174,7 +187,7 @@
           <table class="table progression-table">
             <thead>
               <tr>
-                <th class="col-lg-2">Progression</th>
+                <th data-i18n="app.characters.title" class="col-lg-2"></th>
               </tr>
             </thead>
             <tbody>
@@ -185,14 +198,13 @@
       </div>
     </div>
   
-  
     <!-- Item track progress Modal -->
     <div class="items-track-progress-modal modal fade" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"></h4>
+            <h4 class="modal-title" data-i18n="app.mounts.modal.title"></h4>
           </div>
           <div class="modal-body">
             <ul class="items-track-progress-list list-inline"></ul>

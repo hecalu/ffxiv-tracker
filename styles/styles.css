@@ -103,6 +103,14 @@ hr {
   background: #73bfe6;
 }
 
+/** TRANSLATION **/
+
+.translation .active,
+.translation .active:hover {
+  border: 1px solid #BFA34C;
+  background: #1c1c1c;
+  cursor: default;
+}
 
 /** FC Information **/
 

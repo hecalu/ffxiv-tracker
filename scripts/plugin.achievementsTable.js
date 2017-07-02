@@ -360,5 +360,9 @@ $.widget( "plugin.achievementsTable", {
             $(document).trigger("notification", {message: "Achievement <strong>"+submittedAchievementName+"</strong> was not found in Lodestone.", type: "danger"});
         }
       });
+
+      $(document).on('remove-characters', function() {
+        $this.removeCharacters();
+      });
     }
 });

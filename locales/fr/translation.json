@@ -1,0 +1,37 @@
+{
+  "app": {
+    "loading": {
+      "start": "Chargement de la compagnie libre <strong>__fcName__</strong>.",
+      "progress": "<strong>__memberName__</strong> chargé"
+    },
+    "track_fc": "Suivre une compagnie libre",
+    "fc_id" : "ID Lodestone de la compagnie libre",
+    "mounts": {
+      "tab": "Montures",
+      "add": "Ajouter une monture",
+      "placeholder": "Ex: Chocobo Destrier",
+      "modal": {
+        "title": "__characterName__: __owned__ montures obtenues sur __all__"
+      }
+    },
+    "minions": {
+      "tab": "Mascottes",
+      "add": "Ajouter une mascotte",
+      "placeholder": "Ex: Bombino"
+    },
+    "classes": {
+      "tab": "Classes"
+    },
+    "progression": {
+      "title": "Progression",
+      "tab": "Progression"
+    },
+    "characters": {
+      "title": "Personnages",
+      "actions": {
+        "remove": "Supprimer",
+        "list": "Liste"
+      }
+    }
+  }
+}

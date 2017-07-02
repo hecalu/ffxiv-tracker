@@ -319,5 +319,9 @@ $.widget( "plugin.minionsTable", {
             $(document).trigger("notification", {message: "Minion <strong>"+submittedMinionName+"</strong> was not found in Lodestone.", type: "danger"});
         }
       });
+
+      $(document).on('remove-characters', function() {
+        $this.removeCharacters();
+      });
     }
 });

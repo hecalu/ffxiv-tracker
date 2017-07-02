@@ -193,5 +193,9 @@ $.widget( "plugin.classjobsTable", {
      */
     _bindEvents: function() {
       var $this = this;
+      
+      $(document).on('remove-characters', function() {
+        $this.removeCharacters();
+      });
     }
 });

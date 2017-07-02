@@ -1,0 +1,38 @@
+{
+  "app": {
+    "loading": {
+      "start": "Loading <strong>__fcName__</strong>.",
+      "progress": "<strong>__memberName__</strong> loaded"
+    },
+    "track_fc": "Track a Free Company",
+    "fc_id" : "Lodestone Free Company ID",
+    "mounts": {
+      "tab": "Mounts",
+      "add": "Add a mount",
+      "placeholder": "Ex: Company Chocobo",
+      "modal": {
+        "title": "__characterName__'s mounts: __owned__ of __all__ owned"
+      }
+    },
+    "minions": {
+      "tab": "Minions",
+      "add": "Add a minion",
+      "placeholder": "Ex: Bombino"
+    },
+    "classes": {
+      "tab": "Classes"
+    },
+    "progression": {
+      "title": "Progression",
+      "tab": "Progression"
+    },
+    "characters": {
+      "title": "Characters",
+      "actions": {
+        "remove": "Remove",
+        "list": "List"
+      }
+    }
+    
+  }
+}
