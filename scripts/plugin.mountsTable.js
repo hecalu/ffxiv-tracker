@@ -19,6 +19,7 @@ $.widget( "plugin.mountsTable", {
 
     // Constructor.
     _create: function() {
+        // Load translations
         this._loadTranslations();
 
         // Init table
@@ -30,7 +31,7 @@ $.widget( "plugin.mountsTable", {
 
 
     /**
-     * Load all mount's translations
+     * Load all mounts translations
      */
     _loadTranslations: function() {
         var $this = this,
@@ -203,7 +204,7 @@ $.widget( "plugin.mountsTable", {
       var $this = this;
 
       var newLine = $('<tr>');
-        newLine.append('<td class="character-row"><img class="character-thumbnail" width="40px" src="'+character.avatar+'" /><div class="character-name">'+character.name+'</div><div class="character-actions"><a class="character-mounts-list" href="#"><span class="glyphicon glyphicon-th"></span> <span data-i18n="app.characters.actions.list"></span></a><a class="remove-character" href="#"><span class="glyphicon glyphicon-remove"></span> <span data-i18n="app.characters.actions.remove"></span></a></td>');
+      newLine.append('<td class="character-row"><img class="character-thumbnail" width="40px" src="'+character.avatar+'" /><div class="character-name">'+character.name+'</div><div class="character-actions"><a class="character-mounts-list" href="#"><span class="glyphicon glyphicon-th"></span> <span data-i18n="app.characters.actions.list"></span></a><a class="remove-character" href="#"><span class="glyphicon glyphicon-remove"></span> <span data-i18n="app.characters.actions.remove"></span></a></td>');
 
       // Build mount ownership for iterated character
       $.each(this.options.displayedMounts, function(i, mount){
@@ -323,11 +324,11 @@ $.widget( "plugin.mountsTable", {
             trigger: "hover"
         });
 
-        // Then show modal box
-        $('.items-track-progress-modal').modal();
-
         // Update the modal title as a mount counter
         $(document).trigger('ui-update', {element: $('.items-track-progress-modal'), variables: { characterName: character.name, owned: Object.keys(character.data.mounts).length, all: $this.options.allMounts.length }});
+
+        // Then show modal box
+        $('.items-track-progress-modal').modal();
     },
 
 
@@ -352,10 +353,12 @@ $.widget( "plugin.mountsTable", {
         }
       });
 
+      // Remove all characters from table
       $(document).on('remove-characters', function() {
         $this.removeCharacters();
       });
 
+      // When lang has changed
       $(document).on('change-lang', function(e, data){
           // Populate the autocomplete input.
           $('.mount-name').typeahead('destroy').typeahead({
