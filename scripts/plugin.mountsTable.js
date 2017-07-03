@@ -83,7 +83,6 @@ $.widget( "plugin.mountsTable", {
       var isAlreadyAdded = ($this.options.displayedMounts.findIndex(mount => mount.id == newMount.id) != -1);
 
       if (!isAlreadyAdded) {
-        $('.mount-name').val('');
         this.options.displayedMounts.push(newMount);
       	this.addColumn(newMount);
       
@@ -338,21 +337,6 @@ $.widget( "plugin.mountsTable", {
     _bindEvents: function() {
       var $this = this;
 
-      // When user wants to add a new mount
-      $('#add-mount-form').on('submit', function(e) {
-        e.preventDefault();
-
-        var submittedMountName = $('.mount-name').val();
-        if (submittedMountName == "") return;
-
-        var mountIndex = $this.options.allMounts.findIndex(mount => mount.name_fr == submittedMountName);
-        if(mountIndex != -1) {       
-            $this.addMount($this.options.allMounts[mountIndex]);
-        } else {
-            $(document).trigger("notification", {message: "Mount <strong>"+submittedMountName+"</strong> was not found in Lodestone.", type: "danger"});
-        }
-      });
-
       // Remove all characters from table
       $(document).on('remove-characters', function() {
         $this.removeCharacters();
@@ -363,7 +347,11 @@ $.widget( "plugin.mountsTable", {
           // Populate the autocomplete input.
           $('.mount-name').typeahead('destroy').typeahead({
             source: $this.options.allMounts,
-            displayText: function(el){ return el['name_'+data.lang]}
+            displayText: function(el){ return el['name_'+data.lang]},
+            afterSelect: function(mount) {
+                $this.addMount(mount);
+                $('.mount-name').val('');
+            }
           });
       });
     },

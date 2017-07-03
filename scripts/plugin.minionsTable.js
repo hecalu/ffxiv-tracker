@@ -161,7 +161,6 @@ $.widget( "plugin.minionsTable", {
       var isAlreadyAdded = ($this.options.displayedMinions.findIndex(minion => minion.id == newMinion.id) != -1);
 
       if (!isAlreadyAdded) {
-        $('.minion-name').val('');
         this.options.displayedMinions.push(newMinion);
         this.addColumn(newMinion);
       
@@ -327,21 +326,6 @@ $.widget( "plugin.minionsTable", {
     _bindEvents: function() {
       var $this = this;
 
-      // When user wants to add a new minion
-      $('#add-minion-form').on('submit', function(e) {
-        e.preventDefault();
-
-        var submittedMinionName = $('.minion-name').val();
-        if (submittedMinionName == "") return;
-
-        var minionIndex = $this.options.allMinions.findIndex(minion => minion.name_fr == submittedMinionName);
-        if(minionIndex != -1) {       
-            $this.addMinion($this.options.allMinions[minionIndex]);
-        } else {
-            $(document).trigger("notification", {message: "Minion <strong>"+submittedMinionName+"</strong> was not found in Lodestone.", type: "danger"});
-        }
-      });
-
       // Remove all characters from table
       $(document).on('remove-characters', function() {
         $this.removeCharacters();
@@ -352,7 +336,11 @@ $.widget( "plugin.minionsTable", {
           // Populate the autocomplete input.
           $('.minion-name').typeahead('destroy').typeahead({
             source: $this.options.allMinions,
-            displayText: function(el){ return el['name_'+data.lang]}
+            displayText: function(el){ return el['name_'+data.lang]},
+            afterSelect: function(minion) {
+                $this.addMinion(minion);
+                $('.minion-name').val('');
+            }
           });
       });
     }
