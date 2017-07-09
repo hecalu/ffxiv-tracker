@@ -184,7 +184,7 @@ $.widget( "plugin.classjobsTable", {
 
       var newLine = $('<tr>');
       newLine.append('<td class="character-row"><img class="character-thumbnail" width="40px" src="'+character.avatar+'" /><div class="character-name">'+character.name+'</div><div class="character-actions"><a class="remove-character" href="#"><span class="glyphicon glyphicon-remove"></span> <span data-i18n="app.characters.actions.remove"></span></a></td>');
-      
+
       // Build minion ownership for iterated character
       $.each(this.options.displayedClasses, function(i, classjob){
         if (character.data.classjobs.hasOwnProperty(classjob.classjob_parent)) {

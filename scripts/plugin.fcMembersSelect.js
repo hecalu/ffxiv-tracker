@@ -210,9 +210,8 @@ $.widget( "plugin.fcMembersSelect", {
       $('.fc-reload a').on('click', function(e) {
         e.preventDefault();
         
-        // Trigger event to fill table with FC members + notifications
-        $this._trigger("complete", {}, {"members": $this.freeCompany.members});
-        $(document).trigger("notification", {message: "Free Company <strong>"+ $this.freeCompany.name +"</strong> loaded.", type: "success"});  
+        // Reload all members
+        $this.loadFcMembers($this.options.freeCompanyID);
       });
 
       // When changing current tracked fc.
