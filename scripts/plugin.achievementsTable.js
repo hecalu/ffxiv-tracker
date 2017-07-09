@@ -4,15 +4,15 @@ $.widget( "plugin.achievementsTable", {
     options: {
         displayedCharacters: [],
         displayedAchievements: [],
-        preFilteredAchievements: [1231,1479,1642,1902,1901],
+        preFilteredAchievements: [],
         achievementsList : [
           { name: "Bahamut", achievements : [747,887,1040] },         // Bahamut
           { name: "Bahamut savage", achievements : [997,998,999,1000] },  // Bahamut savage
           { name: "Alexander", achievements : [1228,1476,1639] },       // Alexander
           { name: "Alexander savage", achievements : [1231,1479,1642] },       // Alexander savage
           { name: "ARR Primals", achievements : [856,857,855,893,994,894,1045] }, // Primals
-          { name: "Heavensward Primals", achievements : [1220,1221,1485,1636,1685] }, // Heavensward Primals
-          { name: "Stormblood Primals", achievements : [1902,1901] },         // Stormblood Primals
+          { name: "Heavensward Primals", achievements : [1220,1221,1485,1636,1685], active: true }, // Heavensward Primals
+          { name: "Stormblood Primals", achievements : [1902,1901], active: true },         // Stormblood Primals
         ],
 
         // achievements list update url : https://api.xivdb.com/achievement?columns=id,name_fr,name_en,name_de
@@ -107,17 +107,14 @@ $.widget( "plugin.achievementsTable", {
     addColumnHeader: function(achievement){
       var $this = this;
 
-      var columnHeader = $('<th><span data-achievement-id="'+achievement.id+'"><span data-i18n="achievements:'+achievement.id+'.name"></span><p><a class="btn delete-achievement"><span class="glyphicon glyphicon-remove"></span></a></p></th>');
+      var columnHeader = $('<th data-achievement-id="'+achievement.id+'"><span data-i18n="achievements:'+achievement.id+'.name"></span><p><a class="btn delete-achievement"><span class="glyphicon glyphicon-remove"></span></a></p></th>');
           
       // Add header in table
       $this.element.find('thead tr').append(columnHeader.hide().fadeIn());
       
       // Set event for deletion link to remove achievement column
       columnHeader.find('a.delete-achievement').on('click', function(){
-        // Retrieve column position at the time of deletion request.
-        var columnIndex = $this.element.find('thead tr th').index($(this).parents('th'));
-        $this.removeColumn(columnIndex);
-        $this.removeAchievement(columnIndex);
+        $this.removeAchievement(achievement);
       });
       
       $(document).trigger('ui-update', {"element": columnHeader});
@@ -194,7 +191,7 @@ $.widget( "plugin.achievementsTable", {
       // achievement is already displayed
       } else if (isAlreadyAdded) {
         // Hightlight the header column
-        $this.element.find('[data-achievement-id="'+newAchievement.id+'"]').parent('th').effect("highlight", {}, 500);
+        $this.element.find('[data-achievement-id="'+newAchievement.id+'"]').effect("highlight", {}, 500);
       }
     },
 
@@ -202,11 +199,18 @@ $.widget( "plugin.achievementsTable", {
     /**
      * Remove a displayed achievement by its index.
      * 
-     * @param  {int} achievementIndex achievement's position (start at 1).
+     * @param  {Achievement} achievement achievement object
      */
-    removeAchievement: function(achievementIndex) {
+    removeAchievement: function(achievement) {
+      var $this = this;
+      var displayedAchievements = $this.options.displayedAchievements;
+      $this.options.displayedAchievements = jQuery.grep(displayedAchievements, function(displayedAchievement) {
+          return displayedAchievement.id !== achievement.id
+      });
 
-      this.options.displayedAchievements.splice(achievementIndex-1, 1);
+      // Retrieve column position at the time of deletion request.
+      var columnIndex = $this.element.find('thead tr th[data-achievement-id='+achievement.id+']').index();
+      $this.removeColumn(columnIndex);
     },
 
     
@@ -228,8 +232,7 @@ $.widget( "plugin.achievementsTable", {
         newLine.addClass('private-achievements');
         newLine.attr({
           "data-toggle": "popover",
-          "title": "Private achievements",
-          "data-content": "We cannot access to your progression.\nGo on Lodestone into Home > Account management, and change the privacy setting to public.\nYou will have to wait few days before accessing to your progression."
+          "data-i18n": "[data-original-title]app.progression.private.title;[data-content]app.progression.private.help"
         }).popover({
           placement: "top",
           trigger: "hover"
@@ -261,6 +264,8 @@ $.widget( "plugin.achievementsTable", {
       newLine.find('a.character-achievements-list').on('click', function() {
         $this.showTrackProgressModal(character);
       });
+
+      $(document).trigger('ui-update', {"element": newLine});
     },
 
     
@@ -290,19 +295,41 @@ $.widget( "plugin.achievementsTable", {
       var $this = this;
 
       $.each(achievementsList, function(i, achievementList) {
-        var li = $('<li><a>'+achievementList.name+'</a></li>');
+        var btnList = $('<label class="btn"><input type="checkbox"> '+achievementList.name+'</label>');
 
         // Bind quickload event
-        li.on('click', function() {
+        btnList.on('click', function(e) {
+
           // On click, load all preset achievement from the list
           var achievements = $this._getAchievementsByIds(achievementList.achievements)
-          $.each(achievements, function(i, achievement) {
-            $this.addAchievement(achievement);
-          });
+          
+            if($(this).hasClass('active')) {
+              // Remove achievements
+              $.each(achievements, function(i, achievement) {
+                  $this.removeAchievement(achievement);
+              });
+            } else {
+              // Add achievements
+              $.each(achievements, function(i, achievement) {
+                  $this.addAchievement(achievement);
+              });                    
+            }
+
         });
 
+        if(achievementList.active) {
+          btnList.addClass('active');
+
+          // On click, load all preset achievement from the list
+          var achievements = $this._getAchievementsByIds(achievementList.achievements)
+          // Add achievements
+          $.each(achievements, function(i, achievement) {
+            $this.addAchievement(achievement);
+          });   
+        }
+
         // Add to DOM
-        $('.preset-achievements-list').append(li);
+        $('.preset-achievements-list').append(btnList);
       });
     },
 

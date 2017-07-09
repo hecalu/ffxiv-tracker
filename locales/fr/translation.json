@@ -24,7 +24,11 @@
     },
     "progression": {
       "title": "Progression",
-      "tab": "Progression"
+      "tab": "Progression",
+      "private": {
+        "title": "Données privées",
+        "help": "Les données ne sont pas accessibles.\nAllez sur Lodestone dans vos paramètres de compte et modifier vos paramètres de confidentialité sur Public.\nVous devrez attendre quelques jours avant que nous récupérions votre progression."
+      }
     },
     "characters": {
       "title": "Personnages",

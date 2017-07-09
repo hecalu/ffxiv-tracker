@@ -24,7 +24,11 @@
     },
     "progression": {
       "title": "Progression",
-      "tab": "Progression"
+      "tab": "Progression",
+      "private": {
+        "title": "Private achievements",
+        "help": "We cannot access to your progression.\nGo on Lodestone into Home > Account management, and change the privacy setting to public.\nYou will have to wait few days before accessing to your progression."
+      }
     },
     "characters": {
       "title": "Characters",
