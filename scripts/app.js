@@ -5,7 +5,7 @@ $(document).ready(function(){
 
   // Init translation plugin
   i18n.init({
-    lngWhitelist: ['en', 'de', 'fr'],
+    lngWhitelist: ['en',  'fr'],
     fallbackLng: 'en'
   },function(err, t) {
 

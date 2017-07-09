@@ -30,7 +30,7 @@
           <div class="btn-group" role="group" aria-label="...">
             <button type="button" class="btn btn-default active" data-lang="en"> <span class="flag-icon flag-icon-us" data-toggle="tooltip" data-placement="bottom" title="English"></span></button>
             <button type="button" class="btn btn-default" data-lang="fr"> <span class="flag-icon flag-icon-fr" data-toggle="tooltip" data-placement="bottom" title="Français"></span></button>
-            <button type="button" class="btn btn-default" data-lang="de"> <span class="flag-icon flag-icon-de" data-toggle="tooltip" data-placement="bottom" title="Deutsch"></span></button>
+            <!--<button type="button" class="btn btn-default" data-lang="de"> <span class="flag-icon flag-icon-de" data-toggle="tooltip" data-placement="bottom" title="Deutsch"></span></button>-->
           </div>
          
         </div>
@@ -99,8 +99,7 @@
               
               <!-- Preset mounts lists -->
               <div class="col-sm-8 even-block">
-                <div class="btn-group preset-mounts-list" data-toggle="buttons">
-                </div><ul class="list-inline "></ul>
+                <div class="btn-group preset-mounts-list" data-toggle="buttons"></div>
               </div>
 
             </form>
@@ -127,7 +126,7 @@
             <form id="add-minion-form" class="form-horizontal" action="">
 
               <!-- Add Minion from select box -->
-              <div class="col-sm-6">
+              <div class="col-sm-4">
                 <div class="input-group">
                   <div data-i18n="app.minions.add" class="input-group-addon"></div>
                   <input autocomplete="off" type="text" id="minion-name" class="form-control minion-name" data-provide="typeahead" data-i18n="[placeholder]app.minions.placeholder" placeholder="Enter a name">
@@ -135,8 +134,8 @@
               </div>
 
               <!-- Preset minions lists -->
-              <div class="col-sm-6 even-block">
-                <ul class="list-inline preset-minions-list"></ul>
+              <div class="col-sm-8 even-block">
+                <div class="btn-group preset-minions-list" data-toggle="buttons"></div>
               </div>
 
             </form>

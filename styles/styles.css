@@ -312,7 +312,7 @@ th.sort-asc:after {
   position: absolute;
   margin: 0;
   top: 0px;
-  left: 65%;
+  left: 50%;
   color: #FFF;
   border-radius: 20px;
   border:1px solid #3c3c3c;
@@ -322,6 +322,7 @@ th.sort-asc:after {
   display: block;
   font-size: 12px;
   padding: 0;
+  margin-left: 10px
 }
 .delete-column:hover {
   background: #000;
