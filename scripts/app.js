@@ -45,15 +45,8 @@ $(document).ready(function(){
         removeCharacters();
 
         // Notify FC loading has started
-        $.notify(
-          i18n.t('app.loading.start', {fcName: data.freeCompany.name}), {
-          type: "success",
-          allow_dismiss: false,
-        });
-
-        // Notify FC loading has started
         notifyFcLoading = $.notify(
-          "", {
+          i18n.t('app.loading.start', {fcName: data.freeCompany.name}), {
           type: "success",
           allow_dismiss: false,
           delay: 0,
@@ -81,6 +74,7 @@ $(document).ready(function(){
        
         $.notify("Free Company <strong>"+ data.freeCompany.name +"</strong> loaded.", {
           type: "success",
+          delay: 2000,
           allow_dismiss: false,
         });
        
