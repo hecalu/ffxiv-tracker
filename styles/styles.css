@@ -241,6 +241,30 @@ button.btn-default:focus {
   padding-right: 10px;
 }
 
+label.btn,
+label.btn.focus {
+  background: #3c3c3c;    
+  border: 1px solid #3c3c3c;
+  color: #ccc;
+  outline: 0;
+  
+}
+
+label.btn:hover {
+  color: #BFA34C;
+}
+
+label.btn.active,
+label.btn.active:focus,
+label.btn.active.focus {
+  background: #3c3c3c;    
+  border-bottom: 1px solid #BFA34C;
+  color: #BFA34C;
+  outline: none;
+}
+
+/** TABLES **/
+
 table {
   background: #2E2E2E;    
   outline: 1px solid #1c1c1c;
