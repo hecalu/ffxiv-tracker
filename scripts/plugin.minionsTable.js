@@ -219,7 +219,8 @@ $.widget( "plugin.minionsTable", {
       this.element.find('tbody').append(newLine.hide().fadeIn());
       
       // Set event for deletion link to remove character row
-      newLine.find('.remove-character').on('click', function() {
+      newLine.find('.remove-character').on('click', function(e) {
+        e.preventDefault();
         newLine.fadeOut(300, function() { $(this).remove(); });
         // Remove character from displayed characters list
         $this.options.displayedCharacters = $this.options.displayedCharacters.filter(function(el) {
