@@ -6,7 +6,7 @@ $.widget( "plugin.minionsTable", {
         displayedMinions: [],
         preFilteredMinions: [],
         minionsList : [
-          { name: "Crafting", minions : [53,43,81,186,143,66,171,168,22,185,169,261,262,148,136,95,147,39,158,29,170,100], active: true },    // Crafting
+          { name: "Crafting", minions : [53,43,81,186,143,66,171,168,22,185,169,261,262,148,136,95,147,39,158,29,170,100] },    // Crafting
           { name: "Beast Tribe", minions : [124,175,60,58,59,235,135,127,172,123,126,50,61,156,125,184] },    // Beast Tribe
           { name: "F.A.T.E", minions : [242,31,154,34,18,14,190] },    // F.A.T.E
           { name: "Dungeon", minions : [180,215,252,80,141,249,102,112,178,197,254,134,122,42,226,195,176,232,247,101,57,92,160,179,245,138,166,257,189,258,104,142,44,12,216,139,137,47,219,259] },    // Dungeon
@@ -14,6 +14,7 @@ $.widget( "plugin.minionsTable", {
           { name: "Gardening", minions : [90,87,88,86,89,237,38,24,244,48,188,30] },    // Gardening
           { name: "Hunts", minions : [93,243,256,148,82,144] },    // Hunts
           { name: "Mog station", minions : [109,103,132,121,107,91,98,108,99,131] },    // Mog station
+          { name: "Yo-Kai Watch", minions : [200,201,202,203,204,205,206,207,208,209,210,211,212], active: true },    // Yo-kai Watch
 
         ],
         // Minions list update url : https://api.xivdb.com/minion?columns=id,name_fr,name_en,name_de,icon,info1_fr,icon,info1_en,icon,info1_de
